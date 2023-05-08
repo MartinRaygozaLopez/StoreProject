@@ -1,0 +1,6 @@
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.API\obj\Debug\net5.0\Store.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.API\obj\Debug\net5.0\Store.API.AssemblyInfoInputs.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.API\obj\Debug\net5.0\Store.API.AssemblyInfo.cs
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.API\obj\Debug\net5.0\Store.API.csproj.CoreCompileInputs.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.API\obj\Debug\net5.0\Store.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.API\obj\Debug\net5.0\Store.API.csproj.AssemblyReference.cache

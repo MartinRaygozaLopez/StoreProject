@@ -1,0 +1,15 @@
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\bin\Debug\net5.0\StoreProject.Models.deps.json
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\bin\Debug\net5.0\StoreProject.Models.runtimeconfig.json
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\bin\Debug\net5.0\StoreProject.Models.runtimeconfig.dev.json
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\bin\Debug\net5.0\StoreProject.Models.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\bin\Debug\net5.0\ref\StoreProject.Models.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\bin\Debug\net5.0\StoreProject.Models.pdb
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\obj\Debug\net5.0\StoreProject.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\obj\Debug\net5.0\StoreProject.Models.AssemblyInfoInputs.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\obj\Debug\net5.0\StoreProject.Models.AssemblyInfo.cs
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\obj\Debug\net5.0\StoreProject.Models.csproj.CoreCompileInputs.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\obj\Debug\net5.0\StoreProject.Models.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\obj\Debug\net5.0\ref\StoreProject.Models.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\obj\Debug\net5.0\StoreProject.Models.pdb
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\obj\Debug\net5.0\StoreProject.Models.genruntimeconfig.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.Models\obj\Debug\net5.0\StoreProject.Models.csproj.AssemblyReference.cache

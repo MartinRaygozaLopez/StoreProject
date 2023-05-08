@@ -1,0 +1,15 @@
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\bin\Debug\net5.0\StoreProject.DataAccess.deps.json
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\bin\Debug\net5.0\StoreProject.DataAccess.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\bin\Debug\net5.0\ref\StoreProject.DataAccess.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\bin\Debug\net5.0\StoreProject.DataAccess.pdb
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\bin\Debug\net5.0\StoreProject.Models.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\bin\Debug\net5.0\StoreProject.Models.pdb
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\obj\Debug\net5.0\StoreProject.DataAccess.csproj.AssemblyReference.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\obj\Debug\net5.0\StoreProject.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\obj\Debug\net5.0\StoreProject.DataAccess.AssemblyInfoInputs.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\obj\Debug\net5.0\StoreProject.DataAccess.AssemblyInfo.cs
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\obj\Debug\net5.0\StoreProject.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\obj\Debug\net5.0\StoreProject.DataAccess.csproj.CopyComplete
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\obj\Debug\net5.0\StoreProject.DataAccess.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\obj\Debug\net5.0\ref\StoreProject.DataAccess.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\StoreProject.DataAccess\obj\Debug\net5.0\StoreProject.DataAccess.pdb

@@ -1,0 +1,15 @@
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\obj\Debug\net5.0\Store.DataAccess.csproj.AssemblyReference.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\obj\Debug\net5.0\Store.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\obj\Debug\net5.0\Store.DataAccess.AssemblyInfoInputs.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\obj\Debug\net5.0\Store.DataAccess.AssemblyInfo.cs
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\obj\Debug\net5.0\Store.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\bin\Debug\net5.0\Store.DataAccess.deps.json
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\bin\Debug\net5.0\Store.DataAccess.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\bin\Debug\net5.0\ref\Store.DataAccess.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\bin\Debug\net5.0\Store.DataAccess.pdb
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\bin\Debug\net5.0\Store.Models.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\bin\Debug\net5.0\Store.Models.pdb
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\obj\Debug\net5.0\Store.DataAccess.csproj.CopyComplete
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\obj\Debug\net5.0\Store.DataAccess.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\obj\Debug\net5.0\ref\Store.DataAccess.dll
+C:\Users\2897622\OneDrive - Jabil\Desktop\PruebaTecnicaMLG-master\Store.DataAccess\obj\Debug\net5.0\Store.DataAccess.pdb
