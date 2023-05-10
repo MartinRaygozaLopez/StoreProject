@@ -6,6 +6,11 @@ import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {FormsModule} from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import {SidebarModule} from 'primeng/sidebar';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductCatalogComponent } from './Components/product-catalog/product-catalog.component';
 import { StoreCatalogComponent } from './Components/store-catalog/store-catalog.component';
 import { CustomersComponent } from './Components/customers/customers.component';
+import { ProductCardComponent } from './Components/Utilities/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -23,18 +29,24 @@ import { CustomersComponent } from './Components/customers/customers.component';
     HeaderComponent,
     ProductCatalogComponent,
     StoreCatalogComponent,
-    CustomersComponent
+    CustomersComponent,
+    ProductCardComponent
   ],
   imports: [
     HttpClientModule,
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     TableModule,
+    ConfirmPopupModule,
     ToolbarModule,
     ButtonModule,
     InputTextModule,
     ToastModule,
-    FormsModule
+    OverlayPanelModule,
+    SidebarModule,
+    FormsModule,
+    InputSwitchModule
   ],
   providers: [],
   bootstrap: [AppComponent]

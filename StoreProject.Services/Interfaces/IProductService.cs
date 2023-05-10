@@ -12,11 +12,9 @@ namespace StoreProject.Services.Interfaces
     {
         public Product GetProductByID(int IDProduct);
 
-        public Productstore GetProductStoreByID(int IDProductStore);
-
         public Task<List<Product>> GetAllProducts();
 
-        public Task<List<ProductDropDownModel>> GetProductsByAvailable(bool available);
+        public Task<List<Product>> GetProductsByAvailable(bool available);
 
         public Task<string> CreateProduct(Product ProductData);
 

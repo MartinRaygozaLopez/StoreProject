@@ -19,14 +19,10 @@ namespace StoreProject.API.Controllers
     [Route("api/[controller]")]
     public class StoresController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        private readonly AppDbContextForSP _contextSP;
         private readonly IStoreService _storeService;
 
-        public StoresController(AppDbContext context, AppDbContextForSP contextSP, IStoreService storeService)
+        public StoresController(IStoreService storeService)
         {
-            _context = context;
-            _contextSP = contextSP;
             _storeService = storeService;
         }
 
@@ -35,13 +31,7 @@ namespace StoreProject.API.Controllers
         {
             try
             {
-                var stores = await _context.Stores.Where(x => x.IsAvailable == available).Select(c => new StoresDropDownModel
-                {
-                    IDStore = c.IDStore,
-                    Subsidiary = c.Subsidiary
-                }).ToListAsync();
-
-                return Ok(stores);
+                return Ok(await _storeService.GetStoresByAvailable(available)) ;
             }
             catch (Exception e)
             {
@@ -50,19 +40,11 @@ namespace StoreProject.API.Controllers
         }
 
         [HttpGet("GetAllStores")]
-        public async Task<ActionResult<StoreDTO>> GetAllStores()
+        public async Task<ActionResult<List<Store>>> GetAllStores()
         {
             try
             {
-                var stores = await _context.Stores.Select(c => new StoreDTO
-                {
-                    IDStore = c.IDStore,
-                    Subsidiary = c.Subsidiary,
-                    Address = c.Address,
-                    IsAvailable = (bool)c.IsAvailable
-                }).ToListAsync();
-
-                return Ok(stores);
+                return Ok(await _storeService.GetAllStores());
             }
             catch (Exception ex)
             {
@@ -75,17 +57,7 @@ namespace StoreProject.API.Controllers
         {
             try
             {
-                var store = new Store
-                {
-                    Subsidiary = storeData.Subsidiary,
-                    Address = storeData.Address,
-                    IsAvailable = storeData.IsAvailable
-                };
-
-                _context.Stores.Add(store);
-                await _context.SaveChangesAsync();
-
-                return Ok("ResponseMessages.SuccessfulCreation");
+                return Ok(await _storeService.CreateStore(storeData));
             }
             catch (Exception e)
             {
@@ -98,14 +70,7 @@ namespace StoreProject.API.Controllers
         {
             try
             {
-                Store store = _storeService.GetStoreByPK(storeData.IDStore);
-                store.Subsidiary = storeData.Subsidiary;
-                store.Address = storeData.Address;
-                store.IsAvailable = storeData.IsAvailable;
-
-                await _context.SaveChangesAsync();
-
-                return Ok("ResponseMessages.SuccessfulUpdate");
+                return Ok(await _storeService.UpdateStore(storeData));
             }
             catch (Exception e)
             {

@@ -20,98 +20,42 @@ namespace StoreProject.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly AppDbContext _context;
-        private readonly AppDbContextForSP _contextSP;
-        private readonly IUserService _userService;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(AppDbContext context, AppDbContextForSP contextSP, IUserService userService)
+        public AccountController(AppDbContext context, ITokenService tokenService)
         {
             _context = context;
-            _contextSP = contextSP;
-            _userService = userService;
-        }
-
-        [HttpGet("GetCustomersByAvailable/{available}")]
-        public async Task<ActionResult<CustomerDropDownModel>> GetCustomersByAvailable(bool available)
-        {
-            try
-            {
-                var customers = await _context.Customers.Where(x => x.IsAvailable == available).Select(c => new CustomerDropDownModel
-                {
-                    IDCustomer = c.IDCustomer,
-                    Name = c.Name + ' ' + c.LastName
-                }).ToListAsync();
-
-                return Ok(customers);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message.ToString());
-            }
-        }
-
-        [HttpGet("GetAllCustomers")]
-        public async Task<ActionResult<CustomerDTO>> GetAllCustomers()
-        {
-            try
-            {
-                var customers = await _contextSP.up_GetAllCustomers.FromSqlRaw<up_GetAllCustomers_Result>("up_GetAllCustomers").ToListAsync();
-
-                return Ok(customers);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message.ToString());
-            }
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(CustomerDTO customer)
+        public async Task<IActionResult> Register(RegisterDTO userDTO)
         {
-            try
+            if (await UserExist(userDTO.User)) return BadRequest("The username has already been registered.");
+
+            using var hmac = new HMACSHA512();
+
+            var user = new Customer
             {
-                if (await _userService.UserExist(customer.User)) return BadRequest("The username has already been registered.");
+                User = userDTO.User.ToLower(),
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password)),
+                PasswordSalt = hmac.Key,
+                FKRole = userDTO.FKRole,
+                Address = userDTO.Address,
+                IsAvailable = userDTO.IsAvailable,
+                Name = userDTO.Name,
+                LastName = userDTO.LastName
+            };
 
-                List<SqlParameter> parms = _userService.GetParemeterForCustomer(customer, false);
+            _context.Customers.Add(user);
+            await _context.SaveChangesAsync();
 
-                var results = await _context.Database.ExecuteSqlRawAsync("up_AddCustomer @Name, @LastName, @Address, @User, @Password, @LastUpdated, @IsAvailable", parms.ToArray());
-
-                if (results == 1)
-                {
-                    return Ok("ResponseMessages.SuccessfulCreation");
-                }
-                else
-                {
-                    return BadRequest("ResponseMessages.IDNotFound");
-                }
-            }
-            catch (Exception e)
+            return Ok(new UserDTO
             {
-                return BadRequest(e.Message.ToString());
-            }
-        }
-
-        [HttpPut("updateCustomer")]
-        public async Task<IActionResult> UpdateCustomer(CustomerDTO customer)
-        {
-            try
-            {
-                List<SqlParameter> parms = _userService.GetParemeterForCustomer(customer, true);
-
-                var results = await _context.Database.ExecuteSqlRawAsync("up_ChgCustomerById @IDCustomer, @Name, @LastName, @Address, @User, @Password, @LastUpdated, @Available", parms.ToArray());
-
-                if (results == 1)
-                {
-                    return Ok("ResponseMessages.SuccessfulUpdate");
-                }
-                else
-                {
-                    return BadRequest("ResponseMessages.IDNotFound");
-                }
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message.ToString());
-            }
+                Username = user.User,
+                Token = _tokenService.CreateToken(user),
+                FKRole = userDTO.FKRole
+            });
         }
 
         [HttpGet("login")]
@@ -120,40 +64,26 @@ namespace StoreProject.API.Controllers
             try
             {
                 // Validate if the user exist
-                if (await _userService.UserExist(login.User))
-                    return Unauthorized("Invalid username");
+                var user = await _context.Customers.SingleOrDefaultAsync(x => x.User == login.User.ToLower());
 
-                List<SqlParameter> parms = new List<SqlParameter>();
-                parms.Add(new SqlParameter { ParameterName = "User", Value = login.User.ToLower() });
-                parms.Add(new SqlParameter { ParameterName = "Password", Value = login.Password });
+                if (user == null) return Unauthorized("Invalid username");
 
-                var user = await _contextSP.up_Login.FromSqlRaw<up_Login_Result>("up_Login @User, @Password", parms.ToArray()).AsNoTracking().ToListAsync();
+                // Validate the passowrd
+                using var hmac = new HMACSHA512(user.PasswordSalt);
 
-                return Ok(user);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message.ToString());
-            }
-        }
+                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(login.Password));
 
-        [HttpPost("CreateUserProduct")]
-        public async Task<IActionResult> CreateUserProduct(CustomerProduct userProductData)
-        {
-            try
-            {
-                var userProduct = new CustomerProduct
+                for (int i = 0; i < computedHash.Length; i++)
                 {
-                    FKCustomer = userProductData.FKCustomer,
-                    FKProduct = userProductData.FKProduct,
-                    Date = DateTime.Now,
-                    IsAvailable = userProductData.IsAvailable
-                };
+                    if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
+                }
 
-                //_context.CustomerProducts.Add(userProduct);
-                await _context.SaveChangesAsync();
-
-                return Ok("ResponseMessages.SuccessfulCreation");
+                return Ok(new UserDTO
+                {
+                    Username = user.User,
+                    Token = _tokenService.CreateToken(user),
+                    FKRole = user.FKRole
+                });
             }
             catch (Exception e)
             {
@@ -161,26 +91,55 @@ namespace StoreProject.API.Controllers
             }
         }
 
-        [HttpPut("UpdateUserProduct")]
-        public async Task<IActionResult> UpdateCustomerProduct(CustomerProduct userProductData)
+        private async Task<bool> UserExist(string user)
         {
-            try
-            {
-                CustomerProduct customerProduct = _userService.GetCustomerProductByPK(userProductData.IDCustomerProduct);
-                customerProduct.FKCustomer = userProductData.FKCustomer;
-                customerProduct.FKProduct = userProductData.FKProduct;
-                customerProduct.IsAvailable = userProductData.IsAvailable;
-
-                await _context.SaveChangesAsync();
-
-                return Ok("ResponseMessages.SuccessfulUpdate");
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message.ToString());
-            }
-
+            return await _context.Customers.AnyAsync(c => c.User == user.ToLower());
         }
+
+        //[HttpPost("CreateUserProduct")]
+        //public async Task<IActionResult> CreateUserProduct(CustomerProduct userProductData)
+        //{
+        //    try
+        //    {
+        //        var userProduct = new CustomerProduct
+        //        {
+        //            FKCustomer = userProductData.FKCustomer,
+        //            FKProduct = userProductData.FKProduct,
+        //            Date = DateTime.Now,
+        //            IsAvailable = userProductData.IsAvailable
+        //        };
+
+        //        //_context.CustomerProducts.Add(userProduct);
+        //        await _context.SaveChangesAsync();
+
+        //        return Ok("ResponseMessages.SuccessfulCreation");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(e.Message.ToString());
+        //    }
+        //}
+
+        //[HttpPut("UpdateUserProduct")]
+        //public async Task<IActionResult> UpdateCustomerProduct(CustomerProduct userProductData)
+        //{
+        //    try
+        //    {
+        //        CustomerProduct customerProduct = _userService.GetCustomerProductByID(userProductData.IDCustomerProduct);
+        //        customerProduct.FKCustomer = userProductData.FKCustomer;
+        //        customerProduct.FKProduct = userProductData.FKProduct;
+        //        customerProduct.IsAvailable = userProductData.IsAvailable;
+
+        //        await _context.SaveChangesAsync();
+
+        //        return Ok("ResponseMessages.SuccessfulUpdate");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(e.Message.ToString());
+        //    }
+
+        //}
 
     }
 }

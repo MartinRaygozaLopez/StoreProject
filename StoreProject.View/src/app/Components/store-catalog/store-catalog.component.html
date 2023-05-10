@@ -1,1 +1,73 @@
-<p>store-catalog works!</p>
+<app-header></app-header>
+<p-toast></p-toast>
+
+<div class="cardT" style="margin-top: 8rem;">
+    <p-toolbar styleClass="mb-4 divToolBar">
+        <div style=" display: flex; align-items: center; justify-content: space-between;">
+            <button pButton pRipple icon="pi pi-plus" label="Add New" class="p-button-success mr-2 pl-3"
+                (click)="openNew()"></button>
+        </div>
+        <ng-template pTemplate="left">
+            <div class="m-0 p-0">
+                <h3 style="color: white;">Store Catalog</h3>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="right">
+
+        </ng-template>
+    </p-toolbar>
+
+
+    <p-table [value]="stores" dataKey="idStore" editMode="row">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Edit</th>
+                <th *ngFor="let col of cols">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body"  let-store let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="store">
+                <td pEditableColumn style="width: 10%;">
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(store)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(store)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(store, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+                <td pEditableColumn >
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="store.subsidiary" style="width: 90%;"/>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ store.subsidiary }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="store.address" style="width: 90%;"/>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ store.address }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+               
+                <td pEditableColumn >
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-inputSwitch [(ngModel)]="store.isAvailable"></p-inputSwitch>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ store.isAvailable }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

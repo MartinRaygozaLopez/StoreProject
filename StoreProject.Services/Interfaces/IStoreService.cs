@@ -10,8 +10,14 @@ namespace StoreProject.Services.Interfaces
 {
     public interface IStoreService
     {
-        List<SqlParameter> GetParemeterForStore(StoreDTO store, bool isUpdate);
+        public Task<Store> GetStoreByID(int IDStore);
 
-        public Store GetStoreByPK(int IDStore);
+        public Task<List<StoresDropDownModel>> GetStoresByAvailable(bool available);
+
+        public Task<List<Store>> GetAllStores();
+
+        public Task<string> CreateStore(Store storeData);
+
+        public Task<string> UpdateStore(Store storeData);
     }
 }

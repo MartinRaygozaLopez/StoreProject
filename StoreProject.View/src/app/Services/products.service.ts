@@ -17,6 +17,10 @@ export class ProductsService {
     return this.http.get<ProductsInterface[]>(environment.API + 'product/GetAllProducts');
   }
 
+  getProductsByAvailable(): Observable<ProductsInterface[]> {
+    return this.http.get<ProductsInterface[]>(environment.API + 'product/GetProductsByAvailable/' + true);
+  }
+
   createProduct(product: ProductsInterface): Observable<any> {
     return this.http.post(environment.API + 'product/CreateProduct', product);
   }

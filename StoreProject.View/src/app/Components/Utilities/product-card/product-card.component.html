@@ -1,0 +1,61 @@
+<p-toast></p-toast>
+
+
+<div class="container-fluid m-0 p-0 cardProduct">
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0 imgHover">
+            <div class="hoverContent">
+                <ul>
+                    <li><a (click)="op.toggle($event)"><i class="pi pi-plus"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="imgContainer">
+                <img class="imgProduct" src="{{ product.image }}" />
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <span class="txtProductName">{{ product.description }}</span>
+        </div>
+        <div class="col-12 text-center">
+            <span class="txtPrice">{{ product.price | currency }} USD</span>
+        </div>
+    </div>
+</div>
+
+<p-overlayPanel #op [style]="{width: '20rem'}">
+    <ng-template pTemplate>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p style="font-weight: bold;">{{ product.code }}</p>
+                </div>
+            </div>
+
+            <div class="row m-2">
+                <div class="col-12 text-center">
+                    <p style="font-weight: bold;">{{ product.description }}</p>
+                </div>
+            </div>
+
+            <div class="row m-2">
+                <div class="col-12 text-center">
+                    <p>{{ product.price | currency }} USD</p>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-6 m-0 p-0 text-center">
+                    <div id="AddToCart" quickbeam="add-to-cart" (click)="addCart()">
+                        <span id="AddToCartText">Add</span>
+                    </div>
+                </div>
+                <div class="col-6 m-0 p-0">
+                    <button pButton pRipple type="button" icon="pi pi-chevron-left" class="p-button-rounded p-button-outlined" (click)="subtractNumber()"></button>
+                    <span class="numberCart"> {{ numberCart }} </span>
+                    <button pButton pRipple type="button" icon="pi pi-chevron-right" class="p-button-rounded p-button-outlined" (click)="addNumber()"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-overlayPanel>

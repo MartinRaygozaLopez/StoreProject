@@ -23,7 +23,7 @@ namespace StoreProject.API.Controllers
         }
 
         [HttpGet("GetProductsByAvailable/{available}")]
-        public async Task<ActionResult<ProductDropDownModel>> GetProductsByAvailable(bool available)
+        public async Task<ActionResult<Product>> GetProductsByAvailable(bool available)
         {
             try
             {

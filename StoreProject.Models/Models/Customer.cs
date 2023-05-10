@@ -28,10 +28,11 @@ namespace StoreProject.Models.Models
         [Required]
         [StringLength(50)]
         public string User { get; set; }
-        public byte[] Password { get; set; }
+        public byte[] PasswordHash { get; set; }
         public int FKRole { get; set; }
         [Required]
         public bool? IsAvailable { get; set; }
+        public byte[] PasswordSalt { get; set; }
 
         [ForeignKey(nameof(FKRole))]
         [InverseProperty(nameof(Role.Customers))]

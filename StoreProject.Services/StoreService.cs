@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace StoreProject.Services
 {
@@ -18,25 +19,49 @@ namespace StoreProject.Services
         {
             _context = context;
         }
-
-        public List<SqlParameter> GetParemeterForStore(StoreDTO store, bool isUpdate)
+        public async Task<Store> GetStoreByID(int IDStore)
         {
-            List<SqlParameter> parms = new List<SqlParameter>();
-
-            if (isUpdate)
-                parms.Add(new SqlParameter { ParameterName = "IDStore", Value = store.IDStore });
-
-            parms.Add(new SqlParameter { ParameterName = "Subsidiary", Value = store.Subsidiary });
-            parms.Add(new SqlParameter { ParameterName = "Address", Value = store.Address });
-            parms.Add(new SqlParameter { ParameterName = "LastUpdated", Value = DateTime.Now });
-            parms.Add(new SqlParameter { ParameterName = "IsAvailable", Value = store.IsAvailable });
-
-            return parms;
+            return await _context.Stores.FindAsync(IDStore);
         }
 
-        public Store GetStoreByPK(int IDStore)
+        public async Task<List<StoresDropDownModel>> GetStoresByAvailable(bool available)
         {
-            return _context.Stores.Find(IDStore);
+           return await _context.Stores.Where(x => x.IsAvailable == available).Select(c => new StoresDropDownModel
+            {
+                IDStore = c.IDStore,
+                Subsidiary = c.Subsidiary
+            }).ToListAsync();
+        }
+        public async Task<List<Store>> GetAllStores()
+        {
+            return await _context.Stores.ToListAsync();
+        }
+
+        public async Task<string> CreateStore(Store storeData)
+        {
+            var store = new Store
+            {
+                Subsidiary = storeData.Subsidiary,
+                Address = storeData.Address,
+                IsAvailable = storeData.IsAvailable
+            };
+
+            _context.Stores.Add(store);
+            await _context.SaveChangesAsync();
+
+            return "Successful Creation";
+        }
+
+        public async Task<string> UpdateStore(Store storeData)
+        {
+            Store store = await GetStoreByID(storeData.IDStore);
+            store.Subsidiary = storeData.Subsidiary;
+            store.Address = storeData.Address;
+            store.IsAvailable = storeData.IsAvailable;
+
+            await _context.SaveChangesAsync();
+
+            return "Successful Update";
         }
     }
 }

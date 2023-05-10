@@ -27,7 +27,7 @@ namespace StoreProject.API.Extensions
             );
             
             //services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, TokenService>();
             services.AddScoped<IStoreService, StoreService>();
             services.AddScoped<IProductService, ProductService>();
 

@@ -29,11 +29,6 @@ namespace StoreProject.Services
             return _context.Products.Find(IDProduct);
         }
 
-        public Productstore GetProductStoreByID(int IDProductStore)
-        {
-            return _context.Productstores.Find(IDProductStore);
-        }
-
         public async Task<string> UpdateProduct(Product ProductData)
         {
             Product Product = GetProductByID(ProductData.IDProduct);
@@ -68,13 +63,9 @@ namespace StoreProject.Services
             return "Successful Creation";
         }
 
-        public async Task<List<ProductDropDownModel>> GetProductsByAvailable(bool available)
+        public async Task<List<Product>> GetProductsByAvailable(bool available)
         {
-            return await _context.Products.Where(x => x.IsAvailable == available).Select(c => new ProductDropDownModel
-            {
-                IDProduct = c.IDProduct,
-                Description = c.Code + '-' + c.Description
-            }).ToListAsync();
+            return await _context.Products.Where(x => x.IsAvailable == available).ToListAsync();
         }
     }
 }

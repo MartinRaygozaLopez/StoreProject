@@ -9,7 +9,7 @@
         </div>
         <ng-template pTemplate="left">
             <div class="m-0 p-0">
-                <h3>Product Catalog</h3>
+                <h3 style="color: white;">Product Catalog</h3>
             </div>
         </ng-template>
         <ng-template pTemplate="right">
@@ -72,7 +72,8 @@
                             <input pInputText type="text" [(ngModel)]="product.image" style="width: 90%;"/>
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{ product.image | currency: 'USD' }}
+                            <img class="imgProduct" src="{{ product.image }}" alt="" srcset="">
+                            
                         </ng-template>
                     </p-cellEditor>
                 </td>
@@ -82,17 +83,17 @@
                             <input pInputText type="text" [(ngModel)]="product.stock" style="width: 90%;"/>
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{ product.stock  }}
+                            {{ product.stock }}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td pEditableColumn style="width: 12.5%;">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="product.isAvailable" style="width: 90%;"/>
+                            <p-inputSwitch [(ngModel)]="product.isAvailable"></p-inputSwitch>
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{ product.isAvailable  }}
+                            {{ product.isAvailable }}
                         </ng-template>
                     </p-cellEditor>
                 </td>

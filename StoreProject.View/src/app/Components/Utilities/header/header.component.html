@@ -4,10 +4,9 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <ul class="nav">
-                        <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                        <li class="scroll-to-section"><a href="#men" class="">Articles</a></li>
-                        <li class="scroll-to-section"><a href="#women" class="">Customers</a></li>
-                        <li class="scroll-to-section"><a href="#kids" class="">Stores</a></li>       
+                        <li class="scroll-to-section"><a (click)="redirectView('Home')" class="active">Home</a></li>
+                        <li class="scroll-to-section"><a (click)="redirectView('ProductCatalog')" class="">Products</a></li>
+                        <li class="scroll-to-section"><a (click)="redirectView('StoreCatalog')" class="">Stores</a></li>       
 
                         <li class="scroll-to-section"><a href="#explore">Login</a></li>
                    
@@ -17,23 +16,23 @@
                                 <table id="list-articles" class="u-full-width">
                                     <thead>
                                         <tr>
-                                            <th>Imagen</th>
-                                            <th>Nombre</th>
-                                            <th>Precio</th>
-                                            <th>Cantidad</th>
+                                            <th>Image</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Qty</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let article of articlesLocalStorage">
+                                        <tr *ngFor="let product of productsCart">
                                             <td>
-                                                <img src="{{article.image}}" width="100">
+                                                <img src="{{product.image}}" width="100">
                                             </td>
-                                            <td>{{article.articleName}}</td>
-                                            <td>{{article.price}}</td>
-                                            <td>{{article.count}}</td>
+                                            <td>{{product.description}}</td>
+                                            <td>{{product.price}}</td>
+                                            <td>{{product.qty}}</td>
                                             <td>
-                                                <a href="#" class="borrar-curso" (click)="fnDeleteArticle(article.pkArticle)" > X </a>
+                                                <a href="#" class="borrar-curso" (click)="fnDeleteProduct(product.idProduct)" > X </a>
                                             </td>
                                         </tr>
                                     </tbody>

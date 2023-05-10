@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductsInterface } from 'src/app/Interface/ProductsInterface';
+import { CartService } from 'src/app/Services/cart.service';
+import { ProductsCartInterface } from 'src/app/Interface/ProductsCartInterface';
 
 @Component({
   selector: 'app-header',
@@ -7,50 +10,30 @@ import { ProductsInterface } from 'src/app/Interface/ProductsInterface';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  articlesLocalStorage: any[] = [];
+  productsCart: ProductsCartInterface[] = [];
 
   constructor(
+    private router: Router,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
-    //this.readArticles();
-    this.articlesLocalStorage = JSON.parse(localStorage.getItem('cart') + '') || [];
+    this.cartService.listenercart$.subscribe(response => {
+      this.productsCart = response;
+    });
   }
-
-
-
-  fnloadLocalStorage() {
-
-  }
-
-  fnAddArticleinLocalStorage(model: any) {
-    const exits = this.articlesLocalStorage.some(element => element.pkArticle === model.pkArticle);
-    if (!model.count || !exits) model.count = 1;
-
-    if (exits) {
-      const article = this.articlesLocalStorage.map(element => {
-        if (element.pkArticle === model.pkArticle) {
-          element.count++;
-          return element;
-        } else {
-          return element;
-        }
-      });
-      this.articlesLocalStorage = [...article];
-    } else {
-      this.articlesLocalStorage = [...this.articlesLocalStorage, model];
-    }
-  }
-
-  fnDeleteArticle(pkArticle: number) {
-    this.articlesLocalStorage = this.articlesLocalStorage.filter(element => element.pkArticle !== pkArticle);
-    // Mandar el this.articlesLocalStorage a LocalStorage
+  
+  fnDeleteProduct(idProduct: number) {
+    this.productsCart = this.productsCart.filter(x => x.idProduct != idProduct);
+    console.log(this.productsCart);
+    this.cartService.setListenerCart(this.productsCart);
   }
 
   fnDeleteCart() {
-    this.articlesLocalStorage = [];
-    // Mandar el this.articlesLocalStorage a LocalStorage
+    this.cartService.setListenerCart([]);
   }
 
+  redirectView(url: string) {
+    this.router.navigate([url]);
+  }
 }

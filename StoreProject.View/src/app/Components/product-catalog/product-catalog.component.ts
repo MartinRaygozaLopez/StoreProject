@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductsInterface } from 'src/app/Interface/ProductsInterface';
 import { ProductsService } from 'src/app/Services/products.service';
 import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-product-catalog',
@@ -13,6 +14,8 @@ export class ProductCatalogComponent implements OnInit {
   products: ProductsInterface[] = [];
   cols: any[] = [];
   clonedProducts: { [s: string]: ProductsInterface; } = {};
+
+  @ViewChild(Table, { read: Table }) pTable: Table;
 
   constructor(
     private productsService: ProductsService,
@@ -29,6 +32,20 @@ export class ProductCatalogComponent implements OnInit {
   }
 
   openNew() {
+    const p: ProductsInterface = { 
+      code: "",
+      idProduct: 0,
+      image: "",
+      price: 0,
+      stock: 0,
+      description: "",
+      IsAvailable: true
+    };
+
+    this.products.unshift(p);
+
+    this.pTable.editingRowKeys[p[this.pTable.dataKey]] = true;
+    this.onRowEditInit(p);
   }
 
   onRowEditInit(product: ProductsInterface) {
@@ -37,11 +54,18 @@ export class ProductCatalogComponent implements OnInit {
 
   onRowEditSave(product: ProductsInterface) {
     if (product.price > 0) {
-      this.productsService.updateProduct(product).subscribe(response => {
-        delete this.clonedProducts[product.idProduct];
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
-      });
-
+      console.log(product);
+      if(product.idProduct == 0) {
+        this.productsService.createProduct(product).subscribe(response => {
+          delete this.clonedProducts[product.idProduct];
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is created' });
+        });
+      } else {
+        this.productsService.updateProduct(product).subscribe(response => {
+          delete this.clonedProducts[product.idProduct];
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
+        });
+      }
     } else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
     }
